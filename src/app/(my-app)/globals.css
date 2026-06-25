@@ -48,42 +48,147 @@
 }
 
 :root {
-  --background: hsl(40 18% 97%);
-  --foreground: hsl(100 6% 18%);
+  --background: hsl(40 16% 96%);
+  --foreground: hsl(100 10% 11%);
   --card: hsl(0 0% 100%);
-  --card-foreground: hsl(100 6% 18%);
+  --card-foreground: hsl(100 10% 11%);
   --popover: hsl(0 0% 100%);
-  --popover-foreground: hsl(100 6% 18%);
-  --primary: hsl(96 15% 39%);
-  --primary-foreground: hsl(40 18% 97%);
-  --secondary: hsl(90 4% 56%);
-  --secondary-foreground: hsl(100 6% 18%);
-  --accent: hsl(32 45% 61%);
+  --popover-foreground: hsl(100 10% 11%);
+  --primary: hsl(96 28% 30%);
+  --primary-foreground: hsl(40 16% 96%);
+  --secondary: hsl(90 6% 42%);
+  --secondary-foreground: hsl(100 10% 11%);
+  --accent: hsl(32 52% 48%);
   --accent-foreground: hsl(0 0% 100%);
-  --muted: hsl(90 4% 92%);
-  --muted-foreground: hsl(90 4% 45%);
+  --muted: hsl(90 6% 90%);
+  --muted-foreground: hsl(90 6% 36%);
   --destructive: hsl(0 72% 51%);
-  --border: hsl(90 4% 85%);
-  --input: hsl(90 4% 85%);
-  --ring: hsl(96 15% 39%);
-  --chart-1: hsl(96 15% 39%);
-  --chart-2: hsl(32 45% 61%);
-  --chart-3: hsl(90 4% 56%);
-  --chart-4: hsl(100 6% 18%);
-  --chart-5: hsl(90 4% 45%);
-  --radius: 1rem;
-  --sidebar: hsl(40 18% 97%);
-  --sidebar-foreground: hsl(100 6% 18%);
-  --sidebar-primary: hsl(96 15% 39%);
-  --sidebar-primary-foreground: hsl(40 18% 97%);
-  --sidebar-accent: hsl(90 4% 92%);
-  --sidebar-accent-foreground: hsl(100 6% 18%);
-  --sidebar-border: hsl(90 4% 85%);
-  --sidebar-ring: hsl(96 15% 39%);
+  --border: hsl(90 8% 76%);
+  --input: hsl(90 8% 76%);
+  --ring: hsl(96 28% 30%);
+  --chart-1: hsl(96 28% 30%);
+  --chart-2: hsl(32 52% 48%);
+  --chart-3: hsl(90 6% 42%);
+  --chart-4: hsl(100 10% 11%);
+  --chart-5: hsl(90 6% 36%);
+  --radius: 0.75rem;
+  --sidebar: hsl(40 16% 96%);
+  --sidebar-foreground: hsl(100 10% 11%);
+  --sidebar-primary: hsl(96 28% 30%);
+  --sidebar-primary-foreground: hsl(40 16% 96%);
+  --sidebar-accent: hsl(90 6% 90%);
+  --sidebar-accent-foreground: hsl(100 10% 11%);
+  --sidebar-border: hsl(90 8% 76%);
+  --sidebar-ring: hsl(96 28% 30%);
 }
 
 @utility shadow-soft {
-  box-shadow: 0 10px 40px -10px rgba(44, 48, 43, 0.08);
+  box-shadow: 0 14px 36px -10px rgba(28, 32, 27, 0.16);
+}
+
+@utility bg-grid-subtle {
+  background-image:
+    linear-gradient(to right, hsl(90 4% 85% / 0.45) 1px, transparent 1px),
+    linear-gradient(to bottom, hsl(90 4% 85% / 0.45) 1px, transparent 1px);
+  background-size: 28px 28px;
+}
+
+@keyframes hero-image-zoom {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.06);
+  }
+}
+
+.hero-bg-image {
+  animation: hero-image-zoom 22s ease-in-out infinite;
+  will-change: transform;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-bg-image {
+    animation: none;
+  }
+}
+
+@keyframes border-beam-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.hero-expertise-card {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  border-radius: var(--radius);
+  padding: 2px;
+}
+
+.hero-expertise-card-beam {
+  position: absolute;
+  inset: -120%;
+  background: conic-gradient(
+    from 0deg,
+    transparent 0deg 285deg,
+    var(--accent) 305deg,
+    var(--primary) 330deg,
+    transparent 350deg
+  );
+  animation: border-beam-spin 3.5s linear infinite;
+}
+
+.hero-expertise-card-content {
+  position: relative;
+  border-radius: calc(var(--radius) - 2px);
+  background: var(--card);
+}
+
+.investment-card {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  border-radius: var(--radius);
+  padding: 2px;
+  background: var(--border);
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease,
+    background 0.2s ease;
+}
+
+.investment-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 14px 36px -10px rgba(28, 32, 27, 0.16);
+  background: transparent;
+}
+
+.investment-card-beam {
+  position: absolute;
+  inset: -120%;
+  background: conic-gradient(
+    from 0deg,
+    transparent 0deg 285deg,
+    var(--accent) 305deg,
+    var(--primary) 330deg,
+    transparent 350deg
+  );
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+
+.investment-card:hover .investment-card-beam {
+  opacity: 1;
+  animation: border-beam-spin 3.5s linear infinite;
+}
+
+.investment-card-content {
+  position: relative;
+  border-radius: calc(var(--radius) - 2px);
+  background: var(--card);
 }
 
 @layer base {
@@ -103,5 +208,7 @@
   h5,
   h6 {
     font-family: var(--font-heading), serif;
+    font-weight: 600;
+    letter-spacing: -0.02em;
   }
 }

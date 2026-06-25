@@ -117,6 +117,21 @@ pnpm payload migrate:fresh    # destructive — dev only
 - Section spacing: `py-20` between major blocks.
 - Legacy deep-blue palette from old site is **never** used.
 
+### Responsive & mobile-friendly
+
+All public UI must be **mobile-first** and work well from 320px through desktop. Real estate users browse heavily on phones — treat mobile as the default, then enhance for larger breakpoints.
+
+- **Layout:** Single column on mobile; use Tailwind breakpoints (`sm:`, `md:`, `lg:`) to expand grids and side-by-side layouts. Never assume desktop-only widths.
+- **Touch targets:** Buttons, nav links, and form controls ≥ 44px tap area. Use adequate padding (`py-3`, `min-h-11`) on interactive elements.
+- **Navigation:** Mobile uses the Sheet drawer (`Navbar`); desktop shows inline links. New nav patterns must follow the same split.
+- **Typography:** Scale headings down on small screens (e.g. `text-3xl md:text-4xl lg:text-5xl`). Keep body text readable without horizontal scroll.
+- **Spacing:** Reduce section padding on mobile if needed (`py-12 md:py-20`). Maintain `px-4` container gutters.
+- **Images & media:** Responsive `next/image` sizes; hero ~60vh with `min-h-[400px]`. Property galleries must be swipe-friendly (Phase 4).
+- **Forms:** Full-width inputs on mobile; stack label/field vertically. Avoid tiny hit areas on checkboxes and submit buttons.
+- **Property detail (Phase 4):** Sticky mobile bar with Call Now + Contact Us.
+- **No horizontal overflow:** Test that pages do not scroll sideways at 375px width.
+- **Verify:** Resize browser or use devtools — mobile sheet, readable text, tappable CTAs, grids collapsing to one column.
+
 ### shadcn/ui
 
 - Config: [`components.json`](components.json) — CSS path is `src/app/(my-app)/globals.css`.
@@ -185,6 +200,7 @@ Reuse before creating new abstractions:
 - `pnpm lint` on touched files
 - `pnpm build` when changes affect app shell, routes, or Payload config
 - Visual check: Warm Alabaster background, Sage primary, Lora headings
+- Responsive check: 375px mobile — no horizontal scroll, tappable CTAs, readable type, grids stack correctly
 - New routes: navbar links, metadata, mobile sheet menu
 
 ---

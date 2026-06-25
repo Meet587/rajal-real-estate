@@ -50,7 +50,7 @@ function NavLink({
       href={href}
       onClick={onClick}
       className={cn(
-        "flex items-center gap-2 text-sm font-medium transition-colors hover:text-primary",
+        "flex items-center gap-2 text-sm font-semibold transition-colors hover:text-primary",
         isActive ? "text-primary" : "text-foreground",
         className
       )}
@@ -69,7 +69,7 @@ export function Navbar() {
     href === "/" ? pathname === "/" : pathname.startsWith(href);
 
   return (
-    <header className="sticky top-0 z-50 border-b border-border bg-background/95 backdrop-blur supports-backdrop-filter:bg-background/80">
+    <header className="sticky top-0 z-50 border-b border-border bg-background/98 shadow-[0_1px_0_rgba(28,32,27,0.06)] backdrop-blur supports-backdrop-filter:bg-background/90">
       <div className="container mx-auto flex h-16 items-center justify-between px-4">
         <Link href="/" className="flex shrink-0 items-center">
           <Image
