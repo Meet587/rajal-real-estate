@@ -227,11 +227,17 @@ For property photos, plan upload sizes or add client uploads before launch.
 # Install dependencies
 pnpm install
 
-# Start dev server
+# Start dev server (applies pending migrations first)
 pnpm dev
 
 # Open admin panel
 open http://localhost:3000/admin
+
+# Check migration status
+pnpm run migrate:status
+
+# Apply pending migrations manually
+pnpm run migrate
 
 # Generate TypeScript types after schema changes
 pnpm run generate:types
@@ -248,7 +254,23 @@ pnpm run migrate:create -- <name>
 
 ### Local database
 
-Payload auto-pushes schema changes to Postgres in development (`push: true` by default). No manual migrations needed locally while iterating on collections.
+Schema changes use **migrations only** — dev auto-push is disabled (`push: false` in `payload.config.ts`). This keeps local, CI, and Vercel builds aligned and avoids the drift where tables exist but `payload_migrations` is out of sync.
+
+**Workflow after changing collections or fields:**
+
+1. `pnpm run generate:types`
+2. `pnpm run migrate:create -- <descriptive_name>`
+3. Review the generated file in `src/migrations/`
+4. `pnpm run migrate` (also runs automatically via `pnpm dev` and `pnpm build`)
+5. Commit the migration file with your schema change
+
+**Fresh local database** (destructive — drops all data):
+
+```bash
+pnpm payload migrate:fresh
+```
+
+Use Node 20 LTS when running `migrate:create` (see [Package Manager](#package-manager)).
 
 ---
 
@@ -256,11 +278,12 @@ Payload auto-pushes schema changes to Postgres in development (`push: true` by d
 
 ### Build pipeline
 
-`package.json` runs migrations before the Next.js build:
+`package.json` runs migrations before both dev and production builds:
 
 ```json
 {
   "scripts": {
+    "dev": "payload migrate && next dev",
     "migrate": "payload migrate",
     "build": "payload migrate && next build"
   }
@@ -347,7 +370,7 @@ const media: Media[] = data.docs
 | Payload integration | ✅ Ready | Admin + REST API wired |
 | Neon PostgreSQL | ✅ Ready | Adapter configured |
 | Cloudinary storage | ⚠️ Partial | Works; watch Vercel 4.5 MB upload limit |
-| DB migrations | ✅ Ready | `src/migrations/` + `payload migrate` in build |
+| DB migrations | ✅ Ready | `push: false`; migrations run in `dev` and `build` |
 | Secrets management | ✅ Ready | `.env*` gitignored; only `.env.example` committed |
 | Access control | ⚠️ Partial | Only Users + Media; expand with new collections |
 | Content model | ❌ Todo | Marketing content collections not built |
@@ -370,11 +393,13 @@ Use Node 20 LTS locally (see `.nvmrc`). Payload CLI commands such as `migrate:cr
 
 ## Related Documentation
 
+- [Website Development Guide](./plan.md) — sitemap, phases, property features, CMS model
+- [Design System](./design_system.md) — Modern Sanctuary colors, typography, component rules
+- [Rebuild Content Guide](./rebuild-content-guide.md) — marketing page copy reference
 - [Payload Installation](https://payloadcms.com/docs/getting-started/installation)
 - [Payload Postgres Adapter](https://payloadcms.com/docs/database/postgres)
 - [Payload Storage Adapters](https://payloadcms.com/docs/upload/storage-adapters)
 - [Neon + Vercel](https://neon.tech/docs/guides/vercel)
-- [Rebuild Content Guide](./rebuild-content-guide.md) — site content and copy reference
 
 ---
 

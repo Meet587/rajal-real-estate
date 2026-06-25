@@ -23,10 +23,12 @@ Content extracted from the current site for rebuilding from scratch.
 - **Title:** `RealtyReach - Rajal Realty`
 - **Description:** `Your trusted partner in property buying, selling, rentals, and unique real estate investments.`
 
-### Brand Colors (from design system)
+### Brand Colors
 
-| Role | Color | Hex |
-|------|-------|-----|
+> **Superseded:** Colors below are from the legacy site. Use [design_system.md](./design_system.md) ("Modern Sanctuary") as the authoritative palette — Sage Green, Ash Green, Muted Terracotta, Warm Alabaster.
+
+| Role | Color | Hex (legacy) |
+|------|-------|--------------|
 | Primary | Deep blue | `#003366` |
 | Secondary | Light gray | `#F0F0F0` |
 | Accent | Teal | `#008080` |
@@ -327,7 +329,7 @@ Use this checklist to verify all copy is migrated:
 - [ ] Contact — form (5 fields, labels, placeholders, validation messages)
 - [ ] Contact — email, 2 phones, address
 - [ ] Footer — copyright + tagline
-- [ ] Brand colors applied (primary, secondary, accent)
+- [ ] Design tokens applied per [design_system.md](./design_system.md)
 
 ---
 
@@ -352,4 +354,6 @@ Content was extracted from:
 
 ## 11. Related Docs
 
-- **`docs/blueprint.md`** — Original product brief, style guidelines, and landing page generation prompt (useful for design direction and feature scope beyond static content).
+- **[plan.md](./plan.md)** — Website development guide: sitemap, phases, property features, CMS model
+- **[design_system.md](./design_system.md)** — Modern Sanctuary visual spec (colors, typography, components)
+- **[architecture.md](./architecture.md)** — Stack, env vars, deployment

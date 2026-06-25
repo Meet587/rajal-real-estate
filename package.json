@@ -16,8 +16,9 @@
     ]
   },
   "scripts": {
-    "dev": "NODE_OPTIONS=--no-deprecation next dev",
+    "dev": "NODE_OPTIONS=--no-deprecation payload migrate && NODE_OPTIONS=--no-deprecation next dev",
     "migrate": "NODE_OPTIONS=--no-deprecation payload migrate",
+    "migrate:status": "NODE_OPTIONS=--no-deprecation payload migrate:status",
     "migrate:create": "NODE_OPTIONS=--no-deprecation payload migrate:create",
     "build": "NODE_OPTIONS=--no-deprecation payload migrate && NODE_OPTIONS=--no-deprecation next build",
     "start": "NODE_OPTIONS=--no-deprecation next start",

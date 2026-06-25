@@ -37,6 +37,7 @@ export default buildConfig({
       connectionString: process.env.DATABASE_URL || '',
     },
     migrationDir: path.resolve(dirname, 'src/migrations'),
+    push: false,
   }),
   sharp,
 })
