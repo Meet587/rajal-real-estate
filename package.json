@@ -13,14 +13,18 @@
       "esbuild",
       "sharp",
       "unrs-resolver"
-    ]
+    ],
+    "supportedArchitectures": {
+      "os": ["linux", "current"],
+      "cpu": ["x64", "arm64"]
+    }
   },
   "scripts": {
     "dev": "NODE_OPTIONS=--no-deprecation payload migrate && NODE_OPTIONS=--no-deprecation next dev",
     "migrate": "NODE_OPTIONS=--no-deprecation payload migrate",
     "migrate:status": "NODE_OPTIONS=--no-deprecation payload migrate:status",
     "migrate:create": "NODE_OPTIONS=--no-deprecation payload migrate:create",
-    "build": "NODE_OPTIONS=--no-deprecation payload migrate && NODE_OPTIONS=--no-deprecation next build",
+    "build": "NODE_OPTIONS=--no-deprecation payload migrate && NODE_OPTIONS=--no-deprecation next build --webpack",
     "start": "NODE_OPTIONS=--no-deprecation next start",
     "lint": "eslint",
     "generate:importmap": "NODE_OPTIONS=--no-deprecation payload generate:importmap",
